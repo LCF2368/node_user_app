@@ -1,0 +1,116 @@
+extends layout
+
+block content
+  h1.w3-center.mb-4 Manage Users
+  .table-responsive
+    table.table.table-striped.table-hover.w3-card-4
+      thead.w3-blue
+        tr
+          th Last Name
+          th First Name
+          th Email
+          th Actions
+      tbody
+        each user in users
+          tr
+            td= user.lastName
+            td= user.firstName
+            td= user.email
+            td
+              button.btn.btn-primary.btn-sm.me-2(onclick=`showUpdateForm('${user._id}')`) Update 
+              button.btn.btn-danger.btn-sm(onclick=`confirmDelete('${user._id}', '${user.firstName} ${user.lastName}')`) Delete
+
+  #updateForm.w3-modal
+    .w3-modal-content.w3-card-4.w3-animate-zoom(style="max-width:600px")
+      header.w3-container.w3-blue 
+        span.w3-button.w3-display-topright(onclick="document.getElementById('updateForm').style.display='none'") &times;
+        h2 Update User Information
+      
+      form.w3-container(action="/update", method="POST")
+        input#userId(type="hidden", name="userId")
+        
+        .mb-3
+          label.form-label(for="lastName") Last Name 
+          input#lastName.form-control(type="text", name="lastName", required)
+        
+        .mb-3
+          label.form-label(for="firstName") First Name 
+          input#firstName.form-control(type="text", name="firstName", required)
+
+        .mb-3
+          label.form-label(for="dateOfBirth") Date of Birth 
+          input#dateOfBirth.form-control(type="date", name="dateOfBirth", required)
+
+        .mb-3
+          label.form-label(for="email") Email 
+          input#email.form-control(type="email", name="email", required)
+
+        .mb-3
+          label.form-label(for="address1") Address 1 
+          input#address1.form-control(type="text", name="address1", required)
+
+        .mb-3
+          label.form-label(for="address2") Address 2 
+          input#address2.form-control(type="text", name="address2")
+
+        .mb-3
+          label.form-label(for="city") City 
+          input#city.form-control(type="text", name="city", required)
+
+        .mb-3
+          label.form-label(for="postalCode") Postal Code 
+          input#postalCode.form-control(type="text", name="postalCode", required)
+
+        .mb-3
+          label.form-label(for="country") Country 
+          input#country.form-control(type="text", name="country", required)
+
+        .mb-3
+          label.form-label(for="phoneNumber") Phone Number 
+          input#phoneNumber.form-control(type="tel", name="phoneNumber", required)
+
+        .mb-3
+          label.form-label(for="notes") User Notes 
+          textarea#notes.form-control(name="notes", rows="3")
+
+        button.w3-button.w3-blue.w3-round(type="submit") Update User
+
+  script.
+    function showUpdateForm(userId) {
+      fetch(`/user/${userId}`)
+        .then(response => response.json())
+        .then(user => {
+          document.getElementById('userId').value = user._id;
+          document.getElementById('lastName').value = user.lastName;
+          document.getElementById('firstName').value = user.firstName;
+          document.getElementById('dateOfBirth').value = user.dateOfBirth ? user.dateOfBirth.split('T')[0] : '';
+          document.getElementById('email').value = user.email;
+          document.getElementById('address1').value = user.address1;
+          document.getElementById('address2').value = user.address2 || '';
+          document.getElementById('city').value = user.city;
+          document.getElementById('postalCode').value = user.postalCode;
+          document.getElementById('country').value = user.country;
+          document.getElementById('phoneNumber').value = user.phoneNumber;
+          document.getElementById('notes').value = user.notes || '';
+          
+          document.getElementById('updateForm').style.display = 'block';
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Error fetching user data');
+        });
+    }
+
+    function confirmDelete(userId, userName) {
+      if (confirm(`Are you sure you want to delete ${userName}?`)) {
+        fetch(`/delete/${userId}`, { method: 'DELETE' })
+          .then(response => {
+            if (response.ok) {
+              window.location.reload();
+            } else {
+              alert('Error deleting user');
+            }
+          })
+          .catch(error => console.error('Error:', error));
+      }
+    }

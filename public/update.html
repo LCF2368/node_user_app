@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update User</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+    <nav class="w3-bar w3-blue">
+        <a href="/" class="w3-bar-item w3-button">Home</a>
+        <a href="/add.html" class="w3-bar-item w3-button">Add User</a>
+    </nav>
+    <div class="w3-container">
+        <h1>Update User</h1>
+        <form id="updateUserForm" class="w3-container">
+            <input type="hidden" id="userId" name="userId">
+            <input class="w3-input" type="text" name="lastName" placeholder="Last Name" required>
+            <input class="w3-input" type="text" name="firstName" placeholder="First Name" required>
+            <input class="w3-input" type="date" name="dateOfBirth" required>
+            <input class="w3-input" type="text" name="address1" placeholder="Address 1" required>
+            <input class="w3-input" type="text" name="address2" placeholder="Address 2">
+            <input class="w3-input" type="text" name="city" placeholder="City" required>
+            <input class="w3-input" type="text" name="postalCode" placeholder="Postal Code" required>
+            <input class="w3-input" type="text" name="country" placeholder="Country" required>
+            <input class="w3-input" type="tel" name="phoneNumber" placeholder="Phone Number" required>
+            <input class="w3-input" type="email" name="email" placeholder="Email" required>
+            <textarea class="w3-input" name="notes" placeholder="Notes"></textarea>
+            <button class="w3-button w3-blue" type="submit">Update User</button>
+        </form>
+        <button id="deleteUser" class="w3-button w3-red">Delete User</button>
+    </div>
+    <script src="/js/update.js"></script>
+</body>
+</html>

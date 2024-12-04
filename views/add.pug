@@ -1,0 +1,44 @@
+extends layout
+
+block content
+  h1.w3-center.mb-4 Add New User
+  .w3-card-4.w3-light-grey.p-4
+    form(action="/add", method="POST")
+      .row
+        .col-md-6.mb-3
+          label.form-label(for="lastName") Last Name
+          input#lastName.form-control(type="text", name="lastName", required)
+        .col-md-6.mb-3
+          label.form-label(for="firstName") First Name
+          input#firstName.form-control(type="text", name="firstName", required)
+      .row
+        .col-md-6.mb-3
+          label.form-label(for="dateOfBirth") Date of Birth
+          input#dateOfBirth.form-control(type="date", name="dateOfBirth", required)
+        .col-md-6.mb-3
+          label.form-label(for="email") Email
+          input#email.form-control(type="email", name="email", required)
+      .row
+        .col-md-6.mb-3
+          label.form-label(for="address1") Address 1
+          input#address1.form-control(type="text", name="address1", required)
+        .col-md-6.mb-3
+          label.form-label(for="address2") Address 2
+          input#address2.form-control(type="text", name="address2")
+      .row
+        .col-md-4.mb-3
+          label.form-label(for="city") City
+          input#city.form-control(type="text", name="city", required)
+        .col-md-4.mb-3
+          label.form-label(for="postalCode") Postal Code
+          input#postalCode.form-control(type="text", name="postalCode", required)
+        .col-md-4.mb-3
+          label.form-label(for="country") Country
+          input#country.form-control(type="text", name="country", required)
+      .mb-3
+        label.form-label(for="phoneNumber") Phone Number
+        input#phoneNumber.form-control(type="tel", name="phoneNumber", required)
+      .mb-3
+        label.form-label(for="notes") User Notes
+        textarea#notes.form-control(name="notes", rows="3")
+      button.w3-button.w3-blue.w3-round(type="submit") Add User
